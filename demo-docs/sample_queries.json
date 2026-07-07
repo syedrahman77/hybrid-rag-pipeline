@@ -1,0 +1,74 @@
+{
+  "_comment": "Sample queries for evaluating the assistant against the demo dataset. Each entry lists the question, the category it should route to, the source document(s) that contain the answer, the key facts a correct answer must include, and the expected needs_human flag. The last query is intentionally out-of-scope to verify the 'I don't know' + escalation path. Use these as a starting golden set for a retrieval/answer eval.",
+  "queries": [
+    {
+      "id": "Q1",
+      "question": "How many paid vacation days do full-time employees get?",
+      "expected_category": "HR",
+      "source_documents": ["employee_handbook_excerpt.pdf"],
+      "expected_answer_contains": ["15 paid vacation days", "accruing", "20 days after five years"],
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q2",
+      "question": "What is the daily meal allowance for domestic travel?",
+      "expected_category": "Finance",
+      "source_documents": ["expense_policy_annotated.png"],
+      "expected_answer_contains": ["$75", "domestic"],
+      "ingestion_branch": "image → Gemini vision",
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q3",
+      "question": "What does the company match on 401k contributions?",
+      "expected_category": "HR",
+      "source_documents": ["benefits_enrollment_guide.pdf"],
+      "expected_answer_contains": ["dollar-for-dollar", "up to 4%", "vests fully after two years"],
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q4",
+      "question": "Who needs to approve a $25,000 purchase?",
+      "expected_category": "Finance",
+      "source_documents": ["procurement_policy.pdf"],
+      "expected_answer_contains": ["VP", "Finance review", "$10,001", "$50,000"],
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q5",
+      "question": "How do I report a suspected phishing email?",
+      "expected_category": "IT",
+      "source_documents": ["it_security_policy.pdf"],
+      "expected_answer_contains": ["within 1 hour", "Security Operations Center", "Report Phishing"],
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q6",
+      "question": "How do I request a new laptop?",
+      "expected_category": "IT",
+      "source_documents": ["it_help_software_hardware.html"],
+      "ingestion_branch": "web → Firecrawl",
+      "expected_answer_contains": ["standard hardware catalogue", "IT Service Portal", "four years"],
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q7",
+      "question": "What is the procedure when a production line stops for more than an hour?",
+      "expected_category": "Operations",
+      "source_documents": ["ops_runbook_shift_handover_scanned.pdf"],
+      "ingestion_branch": "scanned PDF → Mistral OCR",
+      "note": "Image-based PDF — text extracted by Mistral OCR at ingestion time, not by pdftotext. Facts verified against the original ops_runbook_shift_handover.md source.",
+      "expected_answer_contains": ["Plant Manager", "EHS Connect", "within 2 hours"],
+      "expected_needs_human": false
+    },
+    {
+      "id": "Q8",
+      "question": "What is the company parental leave policy?",
+      "expected_category": "HR",
+      "source_documents": [],
+      "note": "Out of scope — none of the demo documents cover parental leave. The assistant must NOT fabricate an answer. It should set needs_human to true and return the handoff message, triggering the email escalation branch.",
+      "expected_answer_contains": ["don't have that information", "forwarded your question"],
+      "expected_needs_human": true
+    }
+  ]
+}

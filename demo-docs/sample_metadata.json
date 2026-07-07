@@ -1,0 +1,57 @@
+{
+  "_comment": "Expected metadata for each demo source. The pipeline generates 'category' and 'document_summary' automatically at ingestion via the LLM classifier; this file documents the expected classification so you can verify the classifier is working. 'category' must be one of: HR, Finance, Operations, IT.",
+  "documents": [
+    {
+      "file": "employee_handbook_excerpt.pdf",
+      "source_type": "pdf",
+      "document_id": "HR-POL-001",
+      "expected_category": "HR",
+      "expected_summary": "Employee handbook covering paid time off, sick leave, remote work, and statutory holidays."
+    },
+    {
+      "file": "benefits_enrollment_guide.pdf",
+      "source_type": "pdf",
+      "document_id": "HR-BEN-002",
+      "expected_category": "HR",
+      "expected_summary": "Benefits and enrollment guide covering eligibility, health/dental plans, 401k match, and open enrollment."
+    },
+    {
+      "file": "expense_policy_annotated.png",
+      "source_type": "image",
+      "document_id": "FIN-POL-007",
+      "expected_category": "Finance",
+      "expected_summary": "Annotated travel and expense policy covering submission deadlines, per diem, lodging caps, and corporate cards.",
+      "ingestion_branch": "image → Gemini vision"
+    },
+    {
+      "file": "procurement_policy.pdf",
+      "source_type": "pdf",
+      "document_id": "FIN-POL-011",
+      "expected_category": "Finance",
+      "expected_summary": "Procurement and purchasing policy covering requisitions, approval thresholds, vendors, and payment terms."
+    },
+    {
+      "file": "ops_runbook_shift_handover_scanned.pdf",
+      "source_type": "scanned_pdf",
+      "document_id": "OPS-RB-014",
+      "expected_category": "Operations",
+      "expected_summary": "Scanned operations runbook for shift-to-shift handover procedure and escalation matrix.",
+      "ingestion_branch": "scanned PDF → Mistral OCR"
+    },
+    {
+      "file": "it_security_policy.pdf",
+      "source_type": "pdf",
+      "document_id": "IT-POL-003",
+      "expected_category": "IT",
+      "expected_summary": "IT acceptable use and security policy covering MFA, device handling, AI tools, and incident reporting."
+    },
+    {
+      "file": "it_help_software_hardware.html",
+      "source_type": "web",
+      "document_id": "IT-WEB-001",
+      "expected_category": "IT",
+      "expected_summary": "Intranet help page on requesting software, hardware, and system access through the IT service desk.",
+      "ingestion_branch": "web → Firecrawl"
+    }
+  ]
+}
